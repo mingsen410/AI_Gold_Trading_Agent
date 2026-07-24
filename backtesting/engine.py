@@ -1,12 +1,4 @@
-import logging
-
-from risk_engine.risk_manager import RiskManager
-
-
-
-logger = logging.getLogger(__name__)
-
-
+from analytics.performance import PerformanceAnalyzer
 
 
 
@@ -17,20 +9,25 @@ class BacktestEngine:
         self,
         candles,
         entry_logic,
+        risk_manager=None,
         initial_balance=10000
     ):
-
 
         self.candles = candles
 
         self.entry_logic = entry_logic
 
-
-        self.risk_manager = RiskManager()
-
+        self.risk_manager = risk_manager
 
 
         self.balance = initial_balance
+
+
+        self.equity_curve = [
+
+            initial_balance
+
+        ]
 
 
         self.position = None
@@ -39,20 +36,18 @@ class BacktestEngine:
         self.trades = []
 
 
-        self.current_history = []
 
 
 
-
-
-    # =========================
+    # ==================================
     # Open Position
-    # =========================
+    # ==================================
 
     def open_position(
         self,
         candle,
-        signal
+        signal,
+        atr=None
     ):
 
 
@@ -60,27 +55,37 @@ class BacktestEngine:
 
 
 
-        risk = self.risk_manager.calculate_sl_tp(
+        # default ATR
+        if atr is None:
 
-            entry,
-
-            self.current_history,
-
-            "BUY"
-
-        )
+            atr = 10
 
 
 
-        lot = self.risk_manager.calculate_position_size(
+        sl_distance = atr * 1.5
 
-            self.balance,
+        tp_distance = atr * 3
 
-            entry,
 
-            risk["sl"]
 
-        )
+
+
+        lot = 0.01
+
+
+
+        if self.risk_manager:
+
+
+            lot = self.risk_manager.calculate_lot(
+
+                balance=self.balance,
+
+                stop_loss_distance=sl_distance
+
+            )
+
+
 
 
 
@@ -88,59 +93,104 @@ class BacktestEngine:
 
 
             "symbol":
+
                 "XAUUSD",
 
 
 
             "direction":
+
                 "BUY",
 
 
 
             "lot":
+
                 lot,
 
 
 
             "entry":
+
                 entry,
 
 
 
             "sl":
-                risk["sl"],
+
+                round(
+
+                    entry-sl_distance,
+
+                    2
+
+                ),
 
 
 
             "tp":
-                risk["tp"],
+
+                round(
+
+                    entry+tp_distance,
+
+                    2
+
+                ),
 
 
 
             "atr":
-                risk["atr"],
+
+                atr,
 
 
 
             "exit":
+
                 None,
 
 
 
             "pnl":
-                0
+
+                0,
+
+
+
+            "signal_score":
+
+                signal["score"],
+
+
+
+            "confidence":
+
+                signal["confidence"],
+
+
+
+            "reason":
+
+                signal["reason"]
 
         }
 
 
 
+
+
         print(
+
             "\n===== OPEN BUY ====="
+
         )
 
 
         print(
+
             self.position
+
         )
 
 
@@ -148,9 +198,11 @@ class BacktestEngine:
 
 
 
-    # =========================
+
+
+    # ==================================
     # Check Exit
-    # =========================
+    # ==================================
 
     def check_exit(
         self,
@@ -164,36 +216,58 @@ class BacktestEngine:
 
 
 
+
         price = candle["close"]
 
 
 
-        if price >= self.position["tp"]:
+        result=None
+
+
+
+
+
+        if self.position["direction"]=="BUY":
+
+
+
+            if price >= self.position["tp"]:
+
+
+                result="WIN"
+
+
+
+            elif price <= self.position["sl"]:
+
+
+                result="LOSS"
+
+
+
+
+
+        if result:
+
 
 
             self.close_trade(
+
                 price,
-                "WIN"
+
+                result
+
             )
 
 
 
-        elif price <= self.position["sl"]:
-
-
-            self.close_trade(
-                price,
-                "LOSS"
-            )
 
 
 
 
-
-
-    # =========================
+    # ==================================
     # Close Trade
-    # =========================
+    # ==================================
 
     def close_trade(
         self,
@@ -202,45 +276,38 @@ class BacktestEngine:
     ):
 
 
-        trade = self.position
+        trade=self.position
 
 
 
-        trade["exit"] = price
+        trade["exit"]=price
 
 
 
-        movement = (
 
-            price -
+        pnl=(
 
-            trade["entry"]
+            price-trade["entry"]
 
-        )
-
-
-
-        # Gold PnL
-
-        pnl = (
-
-            movement *
-
-            trade["lot"] *
-
-            100
-
-        )
+        ) * trade["lot"] * 100
 
 
 
-        trade["pnl"] = round(
+
+
+        trade["pnl"]=round(
+
             pnl,
+
             2
+
         )
 
 
-        trade["result"] = result
+
+        trade["result"]=result
+
+
 
 
 
@@ -248,65 +315,110 @@ class BacktestEngine:
 
 
 
+
+
         self.trades.append(
-            trade
+
+            trade.copy()
+
         )
 
 
 
+        self.equity_curve.append(
+
+            self.balance
+
+        )
+
+
+
+
         print(
+
             "\n===== CLOSE ====="
+
         )
 
 
         print(
+
             trade
+
         )
 
 
 
-        self.position = None
+        self.position=None
 
 
 
 
 
 
-    # =========================
-    # Run
-    # =========================
+
+    # ==================================
+    # Main Backtest
+    # ==================================
 
     def run(self):
 
 
         print(
+
             "\n========== BACKTEST START =========="
+
         )
 
 
 
-        for i,candle in enumerate(
-            self.candles
-        ):
+
+        window=[]
+
+
+
+
+        for i,candle in enumerate(self.candles):
+
 
 
             print(
+
                 f"\nCANDLE {i}"
+
+            )
+
+
+
+            window.append(
+
+                candle
+
             )
 
 
 
-            self.current_history = (
 
-                self.candles[:i+1]
+            # maintain window size
 
-            )
+            if len(window)>50:
 
+                window.pop(0)
+
+
+
+
+
+            # check existing position
 
 
             self.check_exit(
+
                 candle
+
             )
+
+
 
 
 
@@ -316,18 +428,24 @@ class BacktestEngine:
 
 
 
-            context = candle.get(
-                "context",
-                {}
-            )
+
+
+            context={
+
+
+                "candles":
+
+                    window
 
 
 
-            context["candles"] = self.current_history
+            }
 
 
 
-            signal = self.entry_logic.generate_signal(
+
+
+            signal=self.entry_logic.generate_signal(
 
                 context
 
@@ -335,30 +453,54 @@ class BacktestEngine:
 
 
 
+
+
             print(
+
                 "\n===== ICT SIGNAL ====="
+
             )
 
 
             print(
+
                 signal
+
             )
 
 
 
-            if signal["signal"] == "BUY":
+
+
+
+            if signal["signal"]=="BUY":
+
+
+
+                atr=self.calculate_atr(
+
+                    window
+
+                )
+
 
 
                 self.open_position(
 
                     candle,
 
-                    signal
+                    signal,
+
+                    atr
 
                 )
 
 
 
+
+
+
+        # force close last position
 
 
         if self.position:
@@ -374,18 +516,59 @@ class BacktestEngine:
 
 
 
+
+
         result=self.report()
 
 
 
         print(
+
             "\n========== BACKTEST END =========="
+
         )
 
 
         print(
+
             result
+
         )
+
+
+
+
+
+        # Performance Analytics
+
+
+        analyzer=PerformanceAnalyzer(
+
+            self.trades,
+
+            self.equity_curve
+
+        )
+
+
+
+        performance=analyzer.report()
+
+
+
+        print(
+
+            "\n========== PERFORMANCE =========="
+
+        )
+
+
+        print(
+
+            performance
+
+        )
+
 
 
 
@@ -395,15 +578,101 @@ class BacktestEngine:
 
 
 
-    # =========================
+
+
+    # ==================================
+    # ATR Calculation
+    # ==================================
+
+    def calculate_atr(
+        self,
+        candles,
+        period=14
+    ):
+
+
+        if len(candles)<period+1:
+
+            return 10
+
+
+
+
+        trs=[]
+
+
+
+        for i in range(
+
+            1,
+
+            len(candles)
+
+        ):
+
+
+            high=candles[i]["high"]
+
+            low=candles[i]["low"]
+
+
+            previous=candles[i-1]["close"]
+
+
+
+
+            tr=max(
+
+                high-low,
+
+                abs(high-previous),
+
+                abs(low-previous)
+
+            )
+
+
+            trs.append(tr)
+
+
+
+
+
+        atr=sum(
+
+            trs[-period:]
+
+        ) / period
+
+
+
+        return round(
+
+            atr,
+
+            2
+
+        )
+
+
+
+
+
+
+
+
+    # ==================================
     # Report
-    # =========================
+    # ==================================
 
     def report(self):
 
 
+
         total=len(
+
             self.trades
+
         )
 
 
@@ -436,6 +705,21 @@ class BacktestEngine:
 
 
 
+
+
+        win_rate=(
+
+            wins/total*100
+
+            if total
+
+            else 0
+
+        )
+
+
+
+
         profit=sum(
 
             t["pnl"]
@@ -446,23 +730,10 @@ class BacktestEngine:
 
 
 
-        win_rate=(
-
-            wins /
-
-            total *
-
-            100
-
-            if total
-
-            else 0
-
-        )
-
 
 
         return {
+
 
 
             "total_trades":
@@ -470,14 +741,17 @@ class BacktestEngine:
                 total,
 
 
+
             "wins":
 
                 wins,
 
 
+
             "losses":
 
                 losses,
+
 
 
             "win_rate":
@@ -491,6 +765,7 @@ class BacktestEngine:
                 ),
 
 
+
             "profit":
 
                 round(
@@ -500,6 +775,7 @@ class BacktestEngine:
                     2
 
                 ),
+
 
 
             "final_balance":

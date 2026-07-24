@@ -1,0 +1,762 @@
+[
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3386.97,
+        "sl": 3371.97,
+        "tp": 3426.97,
+        "status": "OPEN",
+        "exit": 3371.11,
+        "pnl": -15.86,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "LOSS",
+        "time": "2026-07-25 03:17:21.538895"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3349.87,
+        "sl": 3334.87,
+        "tp": 3389.87,
+        "status": "OPEN",
+        "exit": 3393.59,
+        "pnl": 43.72,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.540302"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3393.59,
+        "sl": 3378.59,
+        "tp": 3433.59,
+        "status": "OPEN",
+        "exit": 3436.6,
+        "pnl": 43.01,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.540932"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3436.6,
+        "sl": 3421.6,
+        "tp": 3476.6,
+        "status": "OPEN",
+        "exit": 3477.21,
+        "pnl": 40.61,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.542152"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3489.35,
+        "sl": 3474.35,
+        "tp": 3529.35,
+        "status": "OPEN",
+        "exit": 3473.38,
+        "pnl": -15.97,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "LOSS",
+        "time": "2026-07-25 03:17:21.545426"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3441.89,
+        "sl": 3426.89,
+        "tp": 3481.89,
+        "status": "OPEN",
+        "exit": 3485.33,
+        "pnl": 43.44,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.546325"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3485.33,
+        "sl": 3470.33,
+        "tp": 3525.33,
+        "status": "OPEN",
+        "exit": 3528.12,
+        "pnl": 42.79,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.546805"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3528.12,
+        "sl": 3513.12,
+        "tp": 3568.12,
+        "status": "OPEN",
+        "exit": 3568.28,
+        "pnl": 40.16,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.547231"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3595.58,
+        "sl": 3580.58,
+        "tp": 3635.58,
+        "status": "OPEN",
+        "exit": 3580.16,
+        "pnl": -15.42,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "LOSS",
+        "time": "2026-07-25 03:17:21.548147"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3540.64,
+        "sl": 3525.64,
+        "tp": 3580.64,
+        "status": "OPEN",
+        "exit": 3581.85,
+        "pnl": 41.21,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.548588"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3584.25,
+        "sl": 3569.25,
+        "tp": 3624.25,
+        "status": "OPEN",
+        "exit": 3626.66,
+        "pnl": 42.41,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.549129"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3626.66,
+        "sl": 3611.66,
+        "tp": 3666.66,
+        "status": "OPEN",
+        "exit": 3667.12,
+        "pnl": 40.46,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.549773"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3669.97,
+        "sl": 3654.97,
+        "tp": 3709.97,
+        "status": "OPEN",
+        "exit": 3653.69,
+        "pnl": -16.28,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "LOSS",
+        "time": "2026-07-25 03:17:21.550684"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3626.71,
+        "sl": 3611.71,
+        "tp": 3666.71,
+        "status": "OPEN",
+        "exit": 3670.39,
+        "pnl": 43.68,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.551552"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3670.39,
+        "sl": 3655.39,
+        "tp": 3710.39,
+        "status": "OPEN",
+        "exit": 3711.09,
+        "pnl": 40.7,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.552162"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3711.09,
+        "sl": 3696.09,
+        "tp": 3751.09,
+        "status": "OPEN",
+        "exit": 3751.95,
+        "pnl": 40.86,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.552757"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3751.95,
+        "sl": 3736.95,
+        "tp": 3791.95,
+        "status": "OPEN",
+        "exit": 3793.35,
+        "pnl": 41.4,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.553384"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3720.18,
+        "sl": 3705.18,
+        "tp": 3760.18,
+        "status": "OPEN",
+        "exit": 3765.0,
+        "pnl": 44.82,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.554458"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3765.0,
+        "sl": 3750.0,
+        "tp": 3805.0,
+        "status": "OPEN",
+        "exit": 3807.81,
+        "pnl": 42.81,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.555884"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3807.81,
+        "sl": 3792.81,
+        "tp": 3847.81,
+        "status": "OPEN",
+        "exit": 3848.01,
+        "pnl": 40.2,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.557258"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3848.01,
+        "sl": 3833.01,
+        "tp": 3888.01,
+        "status": "OPEN",
+        "exit": 3827.71,
+        "pnl": -20.3,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "LOSS",
+        "time": "2026-07-25 03:17:21.557634"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3814.01,
+        "sl": 3799.01,
+        "tp": 3854.01,
+        "status": "OPEN",
+        "exit": 3855.21,
+        "pnl": 41.2,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.557982"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3855.21,
+        "sl": 3840.21,
+        "tp": 3895.21,
+        "status": "OPEN",
+        "exit": 3895.76,
+        "pnl": 40.55,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.558249"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3895.76,
+        "sl": 3880.76,
+        "tp": 3935.76,
+        "status": "OPEN",
+        "exit": 3938.41,
+        "pnl": 42.65,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.558526"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3938.94,
+        "sl": 3923.94,
+        "tp": 3978.94,
+        "status": "OPEN",
+        "exit": 3980.41,
+        "pnl": 41.47,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.558907"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3914.1,
+        "sl": 3899.1,
+        "tp": 3954.1,
+        "status": "OPEN",
+        "exit": 3954.34,
+        "pnl": 40.24,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.559473"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 3954.34,
+        "sl": 3939.34,
+        "tp": 3994.34,
+        "status": "OPEN",
+        "exit": 3997.53,
+        "pnl": 43.19,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.560006"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 4002.27,
+        "sl": 3987.27,
+        "tp": 4042.27,
+        "status": "OPEN",
+        "exit": 4043.38,
+        "pnl": 41.11,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.560399"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 4046.0,
+        "sl": 4031.0,
+        "tp": 4086.0,
+        "status": "OPEN",
+        "exit": 4029.51,
+        "pnl": -16.49,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "LOSS",
+        "time": "2026-07-25 03:17:21.560819"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 4014.49,
+        "sl": 3999.49,
+        "tp": 4054.49,
+        "status": "OPEN",
+        "exit": 4057.36,
+        "pnl": 42.87,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.565771"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 4057.36,
+        "sl": 4042.36,
+        "tp": 4097.360000000001,
+        "status": "OPEN",
+        "exit": 4102.2,
+        "pnl": 44.84,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.567983"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 4102.2,
+        "sl": 4087.2,
+        "tp": 4142.2,
+        "status": "OPEN",
+        "exit": 4142.29,
+        "pnl": 40.09,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.568623"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 4147.8,
+        "sl": 4132.8,
+        "tp": 4187.8,
+        "status": "OPEN",
+        "exit": 4130.55,
+        "pnl": -17.25,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "LOSS",
+        "time": "2026-07-25 03:17:21.569154"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 4111.12,
+        "sl": 4096.12,
+        "tp": 4151.12,
+        "status": "OPEN",
+        "exit": 4151.78,
+        "pnl": 40.66,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.569628"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 4151.78,
+        "sl": 4136.78,
+        "tp": 4191.78,
+        "status": "OPEN",
+        "exit": 4192.54,
+        "pnl": 40.76,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.569998"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 4192.54,
+        "sl": 4177.54,
+        "tp": 4232.54,
+        "status": "OPEN",
+        "exit": 4234.79,
+        "pnl": 42.25,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.570384"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 4237.41,
+        "sl": 4222.41,
+        "tp": 4277.41,
+        "status": "OPEN",
+        "exit": 4218.83,
+        "pnl": -18.58,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "LOSS",
+        "time": "2026-07-25 03:17:21.570806"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 4201.99,
+        "sl": 4186.99,
+        "tp": 4241.99,
+        "status": "OPEN",
+        "exit": 4245.4,
+        "pnl": 43.41,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.571270"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 4245.4,
+        "sl": 4230.4,
+        "tp": 4285.4,
+        "status": "OPEN",
+        "exit": 4286.8,
+        "pnl": 41.4,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "WIN",
+        "time": "2026-07-25 03:17:21.571688"
+    },
+    {
+        "symbol": "XAUUSD",
+        "direction": "BUY",
+        "entry": 4286.8,
+        "sl": 4271.8,
+        "tp": 4326.8,
+        "status": "OPEN",
+        "exit": 4306.15,
+        "pnl": 19.35,
+        "signal_score": 3,
+        "confidence": 0.75,
+        "reason": [
+            "Bullish momentum",
+            "Break of Structure",
+            "FVG"
+        ],
+        "result": "FORCED CLOSE",
+        "time": "2026-07-25 03:17:21.572164"
+    }
+]
