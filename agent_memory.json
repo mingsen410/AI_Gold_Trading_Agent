@@ -1,0 +1,19 @@
+{
+    "trades": [
+        {
+            "symbol": "XAUUSD",
+            "direction": "BUY",
+            "result": "+2R"
+        }
+    ],
+    "sessions": [
+        {
+            "date": "2026-07-24",
+            "market": "Bullish"
+        }
+    ],
+    "performance": {
+        "win_rate": 70,
+        "profit_factor": 2.1
+    }
+}
