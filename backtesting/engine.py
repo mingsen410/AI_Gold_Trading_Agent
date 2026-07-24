@@ -1,110 +1,129 @@
 import logging
 
 
+logger = logging.getLogger(__name__)
+
+
 class BacktestEngine:
 
+
     def __init__(
-        self,
-        candles,
-        entry_logic,
-        initial_balance=10000
+            self,
+            candles,
+            entry_logic,
+            initial_balance=10000
     ):
 
+
         self.candles = candles
+
         self.entry_logic = entry_logic
 
         self.balance = initial_balance
-        self.equity_curve = [
-            initial_balance
-        ]
 
         self.position = None
+
         self.trades = []
 
 
+
+    # ===============================
+    # OPEN POSITION
+    # ===============================
+
     def open_position(
-        self,
-        candle,
-        signal
+            self,
+            candle,
+            signal
     ):
+
 
         entry = candle["close"]
 
-        if signal["signal"]=="BUY":
 
-            self.position = {
-
-                "symbol":"XAUUSD",
-
-                "direction":"BUY",
-
-                "entry":entry,
-
-                "sl":entry-10,
-
-                "tp":entry+40,
-
-                "status":"OPEN",
-
-                "exit":None,
-
-                "pnl":0
-            }
+        self.position = {
 
 
-            print(
-                "\n===== POSITION OPEN ====="
-            )
+            "symbol":"XAUUSD",
 
-            print(
-                self.position
-            )
+            "direction":"BUY",
 
+            "entry":entry,
+
+
+            "sl":
+                entry - 15,
+
+
+            "tp":
+                entry + 45,
+
+
+            "exit":None,
+
+
+            "pnl":0
+
+
+        }
+
+
+
+        print("\n===== OPEN BUY =====")
+
+        print(self.position)
+
+
+
+
+    # ===============================
+    # CHECK EXIT
+    # ===============================
 
     def check_exit(
-        self,
-        candle
+            self,
+            candle
     ):
 
-        if not self.position:
+
+        if self.position is None:
             return
+
 
 
         price=candle["close"]
 
 
-        # BUY
 
-        if self.position["direction"]=="BUY":
-
-
-            # TP
-
-            if price >= self.position["tp"]:
+        if price >= self.position["tp"]:
 
 
-                self.close_trade(
-                    price,
-                    "WIN"
-                )
+            self.close_trade(
+                price,
+                "WIN"
+            )
 
 
-            # SL
 
-            elif price <= self.position["sl"]:
-
-
-                self.close_trade(
-                    price,
-                    "LOSS"
-                )
+        elif price <= self.position["sl"]:
 
 
+            self.close_trade(
+                price,
+                "LOSS"
+            )
+
+
+
+
+    # ===============================
+    # CLOSE TRADE
+    # ===============================
 
     def close_trade(
-        self,
-        price,
-        status
+            self,
+            price,
+            result
     ):
 
 
@@ -114,19 +133,18 @@ class BacktestEngine:
         trade["exit"]=price
 
 
-        if trade["direction"]=="BUY":
-
-            pnl = price - trade["entry"]
-
-
-        trade["pnl"]=pnl
+        trade["pnl"]=(
+            price-
+            trade["entry"]
+        )
 
 
-        trade["status"]=status
+        trade["result"]=result
 
 
 
-        self.balance += pnl
+        self.balance += trade["pnl"]
+
 
 
         self.trades.append(
@@ -134,23 +152,21 @@ class BacktestEngine:
         )
 
 
-        self.equity_curve.append(
-            self.balance
-        )
+        print("\n===== CLOSE =====")
 
+        print(trade)
 
-        print(
-            "\n===== TRADE CLOSED ====="
-        )
-
-        print(
-            trade
-        )
 
 
         self.position=None
 
 
+
+
+
+    # ===============================
+    # MAIN LOOP
+    # ===============================
 
     def run(self):
 
@@ -160,7 +176,12 @@ class BacktestEngine:
         )
 
 
-        for i,candle in enumerate(self.candles):
+        for i in range(
+            len(self.candles)
+        ):
+
+
+            candle=self.candles[i]
 
 
             print(
@@ -168,7 +189,8 @@ class BacktestEngine:
             )
 
 
-            # check existing position
+
+            # existing position
 
             self.check_exit(
                 candle
@@ -181,10 +203,30 @@ class BacktestEngine:
 
 
 
-            context = candle.get(
-                "context",
-                {}
-            )
+
+            # =========================
+            # Build Context
+            # =========================
+
+
+            context={
+
+
+                "candles":
+                    self.candles[
+                        max(0,i-50):
+                        i+1
+                    ],
+
+
+                "current":
+                    candle
+
+
+
+            }
+
+
 
 
             signal = self.entry_logic.generate_signal(
@@ -192,13 +234,14 @@ class BacktestEngine:
             )
 
 
+
             print(
                 "\n===== ICT SIGNAL ====="
             )
 
-            print(
-                signal
-            )
+            print(signal)
+
+
 
 
             if signal["signal"]=="BUY":
@@ -211,21 +254,29 @@ class BacktestEngine:
 
 
 
+
         result=self.report()
+
 
 
         print(
             "\n========== BACKTEST END =========="
         )
 
-        print(
-            result
-        )
+        print(result)
+
 
 
         return result
 
 
+
+
+
+
+    # ===============================
+    # REPORT
+    # ===============================
 
 
     def report(self):
@@ -238,52 +289,19 @@ class BacktestEngine:
 
         wins=len(
             [
-                x for x in self.trades
-                if x["status"]=="WIN"
+                t for t in self.trades
+                if t["result"]=="WIN"
             ]
         )
 
 
-        losses=len(
-            [
-                x for x in self.trades
-                if x["status"]=="LOSS"
-            ]
-        )
+        losses=total-wins
 
 
 
         profit=sum(
-            x["pnl"]
-            for x in self.trades
-        )
-
-
-        loss_amount=sum(
-            x["pnl"]
-            for x in self.trades
-            if x["pnl"]<0
-        )
-
-
-
-        if loss_amount==0:
-
-            pf="INF"
-
-        else:
-
-            pf=round(
-                profit /
-                abs(loss_amount),
-                2
-            )
-
-
-        win_rate=(
-            wins/total*100
-            if total>0
-            else 0
+            t["pnl"]
+            for t in self.trades
         )
 
 
@@ -291,22 +309,39 @@ class BacktestEngine:
         return {
 
 
-            "total_trades":total,
+            "total_trades":
+                total,
 
-            "wins":wins,
 
-            "losses":losses,
+            "wins":
+                wins,
 
-            "win_rate":round(
-                win_rate,
-                2
-            ),
 
-            "profit":profit,
+            "losses":
+                losses,
 
-            "profit_factor":pf,
+
+            "win_rate":
+                round(
+                    wins/total*100,
+                    2
+                )
+                if total else 0,
+
+
+
+            "profit":
+                round(
+                    profit,
+                    2
+                ),
+
+
 
             "final_balance":
-                self.balance
+                round(
+                    10000+profit,
+                    2
+                )
 
         }

@@ -1,173 +1,176 @@
 import logging
 
-logger = logging.getLogger(__name__)
+
+logger=logging.getLogger(__name__)
+
 
 
 class ICTEntryLogic:
 
-    def __init__(self):
-        pass
+
+    def generate_signal(
+            self,
+            context
+    ):
 
 
-    def generate_signal(self, context):
-
-        return self.evaluate(context)
+        candles=context["candles"]
 
 
+        if len(candles)<20:
 
-    def evaluate(self, context):
+            return {
 
-        score = 0
-        reasons = []
+                "signal":"WAIT",
 
+                "score":0,
 
-        # =====================
-        # Market Structure
-        # =====================
+                "confidence":0,
 
-        structure = context.get(
-            "structure",
-            {}
-        )
+                "reason":[]
 
-        trend = structure.get(
-            "trend",
-            "UNKNOWN"
-        )
+            }
 
 
-        if trend == "BULLISH":
-            score += 1
-            reasons.append(
-                "Bullish structure"
+
+
+        score=0
+
+        reason=[]
+
+
+
+
+        closes=[
+
+            c["close"]
+
+            for c in candles
+
+        ]
+
+
+
+        current=closes[-1]
+
+
+        previous=sum(
+            closes[-10:-1]
+        )/9
+
+
+
+
+        # ===================
+        # Trend
+        # ===================
+
+
+        if current > previous:
+
+
+            score+=1
+
+            reason.append(
+                "Bullish momentum"
             )
 
 
-        # =====================
-        # BOS
-        # =====================
 
-        if structure.get(
-            "BOS",
-            False
+        # ===================
+        # Break structure
+        # ===================
+
+
+        if current > max(
+            closes[-10:-1]
         ):
 
-            score += 1
 
-            reasons.append(
+            score+=1
+
+
+            reason.append(
                 "Break of Structure"
             )
 
 
-        # =====================
-        # Liquidity Sweep
-        # =====================
-
-        liquidity = context.get(
-            "liquidity",
-            {}
-        )
 
 
-        sweep = liquidity.get(
-            "sweep",
-            {}
-        )
+        # ===================
+        # Liquidity sweep
+        # ===================
 
 
-        if isinstance(sweep,dict):
-
-            if sweep.get(
-                "sweep",
-                False
-            ):
-
-                score +=1
-
-                reasons.append(
-                    "Liquidity sweep"
-                )
+        if candles[-1]["low"] < min(
+            c["low"]
+            for c in candles[-10:-1]
+        ):
 
 
-        # =====================
-        # FVG
-        # =====================
-
-        fvg = context.get(
-            "fvg",
-            []
-        )
+            score+=1
 
 
-        if isinstance(fvg,list):
-
-            if len(fvg)>0:
-
-                score+=1
-
-                reasons.append(
-                    "FVG detected"
-                )
+            reason.append(
+                "Liquidity sweep"
+            )
 
 
-        # =====================
-        # Order Block
-        # =====================
-
-        ob = context.get(
-            "order_block",
-            []
-        )
 
 
-        if isinstance(ob,list):
-
-            if len(ob)>0:
-
-                score+=1
-
-                reasons.append(
-                    "Order Block detected"
-                )
+        # ===================
+        # FVG simulation
+        # ===================
 
 
-        # =====================
-        # Decision
-        # =====================
-
-        confidence = score / 5
+        if candles[-1]["low"] > candles[-3]["high"]:
 
 
-        if score >=4:
+            score+=1
+
+
+            reason.append(
+                "FVG"
+            )
+
+
+
+
+
+        if score>=3:
+
 
             signal="BUY"
 
 
         else:
 
+
             signal="WAIT"
 
 
 
-        result={
 
-            "signal":signal,
+        return {
 
-            "score":score,
 
-            "confidence":round(
-                confidence,
-                2
-            ),
+            "signal":
+                signal,
 
-            "reason":reasons
+
+            "score":
+                score,
+
+
+            "confidence":
+                round(
+                    score/4,
+                    2
+                ),
+
+
+            "reason":
+                reason
+
 
         }
-
-
-        logger.info(
-            f"ICT Entry Decision: {result}"
-        )
-
-
-        return result

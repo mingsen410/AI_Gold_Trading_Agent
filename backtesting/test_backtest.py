@@ -11,7 +11,7 @@ candles = generate_xauusd_data(
 
 
 
-engine=BacktestEngine(
+engine = BacktestEngine(
 
     candles,
 
@@ -21,7 +21,7 @@ engine=BacktestEngine(
 
 
 
-result=engine.run()
+result = engine.run()
 
 
 
@@ -29,6 +29,5 @@ print(
 "\n========== RESULT =========="
 )
 
-print(
-result
-)
+
+print(result)
