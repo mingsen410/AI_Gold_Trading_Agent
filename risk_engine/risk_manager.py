@@ -1,5 +1,7 @@
-from core.logger import AgentLogger
+import logging
 
+
+logger = logging.getLogger(__name__)
 
 
 class RiskManager:
@@ -7,122 +9,197 @@ class RiskManager:
 
     def __init__(
         self,
-        default_risk_percent=1,
-        sl_atr_multiplier=1.5,
-        tp_atr_multiplier=3,
-        minimum_rr=2
+        risk_percent=1,
+        atr_multiplier_sl=1.5,
+        atr_multiplier_tp=3
     ):
 
+        self.risk_percent = risk_percent
 
-        self.default_risk_percent = default_risk_percent
+        self.atr_multiplier_sl = atr_multiplier_sl
 
-        self.sl_atr_multiplier = sl_atr_multiplier
-
-        self.tp_atr_multiplier = tp_atr_multiplier
-
-        self.minimum_rr = minimum_rr
+        self.atr_multiplier_tp = atr_multiplier_tp
 
 
 
+    # =========================
+    # ATR Calculation
+    # =========================
 
-
-    def generate_trade_plan(
+    def calculate_atr(
         self,
-        balance,
-        entry,
-        direction,
-        atr,
-        risk_percent=None
+        candles,
+        period=14
     ):
 
 
-        if risk_percent is None:
+        if len(candles) <= period:
 
-            risk_percent = self.default_risk_percent
+            return None
 
 
 
-        #
-        # Dynamic SL / TP
-        #
+        true_ranges = []
+
+
+
+        for i in range(1, len(candles)):
+
+
+            high = candles[i]["high"]
+
+            low = candles[i]["low"]
+
+            previous_close = candles[i-1]["close"]
+
+
+
+            tr = max(
+
+                high - low,
+
+                abs(high - previous_close),
+
+                abs(low - previous_close)
+
+            )
+
+
+            true_ranges.append(tr)
+
+
+
+        atr = sum(
+            true_ranges[-period:]
+        ) / period
+
+
+
+        return atr
+
+
+
+
+    # =========================
+    # Dynamic SL / TP
+    # =========================
+
+    def calculate_sl_tp(
+        self,
+        entry,
+        candles,
+        direction="BUY"
+    ):
+
+
+        atr = self.calculate_atr(
+            candles
+        )
+
+
+
+        if atr is None:
+
+            atr = 10
+
+
+
+        sl_distance = (
+
+            atr *
+
+            self.atr_multiplier_sl
+
+        )
+
+
+
+        tp_distance = (
+
+            atr *
+
+            self.atr_multiplier_tp
+
+        )
+
+
 
         if direction == "BUY":
 
 
-            stop_loss = (
+            sl = entry - sl_distance
 
-                entry
+            tp = entry + tp_distance
 
-                -
-
-                atr * self.sl_atr_multiplier
-
-            )
-
-
-            take_profit = (
-
-                entry
-
-                +
-
-                atr * self.tp_atr_multiplier
-
-            )
-
-
-
-        elif direction == "SELL":
-
-
-            stop_loss = (
-
-                entry
-
-                +
-
-                atr * self.sl_atr_multiplier
-
-            )
-
-
-            take_profit = (
-
-                entry
-
-                -
-
-                atr * self.tp_atr_multiplier
-
-            )
 
 
         else:
 
 
-            return {
+            sl = entry + sl_distance
 
-                "error":
-                "Invalid direction"
-
-            }
+            tp = entry - tp_distance
 
 
 
 
-        #
-        # Risk Money
-        #
+        return {
+
+
+            "atr":
+                round(
+                    atr,
+                    2
+                ),
+
+
+
+            "sl":
+                round(
+                    sl,
+                    2
+                ),
+
+
+
+            "tp":
+                round(
+                    tp,
+                    2
+                ),
+
+
+
+            "sl_distance":
+                round(
+                    sl_distance,
+                    2
+                )
+
+        }
+
+
+
+
+    # =========================
+    # Position Size
+    # =========================
+
+    def calculate_position_size(
+        self,
+        balance,
+        entry,
+        sl
+    ):
+
+
+        # Account risk amount
 
         risk_amount = (
 
-            balance
+            balance *
 
-            *
-
-            risk_percent
-
-            /
+            self.risk_percent /
 
             100
 
@@ -130,181 +207,52 @@ class RiskManager:
 
 
 
-
-        #
-        # Distance
-        #
+        # Stop loss distance
 
         stop_distance = abs(
 
-            entry - stop_loss
-
-        )
-
-
-        reward_distance = abs(
-
-            take_profit - entry
+            entry - sl
 
         )
 
 
 
-        if stop_distance == 0:
+        if stop_distance <= 0:
 
-
-            return {
-
-                "error":
-                "Invalid SL"
-
-            }
+            return 0.01
 
 
 
-
+        # XAUUSD calculation
         #
-        # RR
-        #
-
-        rr = round(
-
-            reward_distance
-
-            /
-
-            stop_distance,
-
-            2
-
-        )
+        # 1 lot gold
+        # approximately $100 per $1 move
 
 
+        lot = (
 
-
-        #
-        # RR Filter
-        #
-
-        if rr < self.minimum_rr:
-
-
-            return {
-
-
-                "status":
-
-                "REJECTED",
-
-
-                "reason":
-
-                "Risk Reward below minimum",
-
-
-                "rr":
-
-                rr
-
-            }
-
-
-
-
-        #
-        # XAUUSD Lot Size
-        #
-
-        contract_value = 100
-
-
-
-        lot_size = round(
-
-            risk_amount
-
-            /
+            risk_amount /
 
             (
+                stop_distance *
 
-                stop_distance
+                100
 
-                *
+            )
 
-                contract_value
+        )
 
-            ),
 
+
+        # MT5 minimum
+
+        if lot < 0.01:
+
+            lot = 0.01
+
+
+
+        return round(
+            lot,
             2
-
         )
-
-
-
-
-
-        result = {
-
-
-            "status":
-
-            "APPROVED",
-
-
-            "direction":
-
-            direction,
-
-
-            "entry":
-
-            entry,
-
-
-            "stop_loss":
-
-            round(
-                stop_loss,
-                2
-            ),
-
-
-            "take_profit":
-
-            round(
-                take_profit,
-                2
-            ),
-
-
-            "risk_amount":
-
-            round(
-                risk_amount,
-                2
-            ),
-
-
-            "lot_size":
-
-            lot_size,
-
-
-            "risk_reward":
-
-            rr
-
-        }
-
-
-
-
-        AgentLogger.info(
-
-            f"Trade Plan Generated: {result}"
-
-        )
-
-
-
-        return result

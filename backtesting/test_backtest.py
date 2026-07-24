@@ -5,8 +5,11 @@ from backtesting.data_generator import generate_xauusd_data
 
 
 candles = generate_xauusd_data(
+
     candles=1000,
+
     start_price=3350
+
 )
 
 
@@ -30,4 +33,6 @@ print(
 )
 
 
-print(result)
+print(
+result
+)
